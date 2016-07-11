@@ -14,7 +14,7 @@ class Homestead
 
     # Configure The Box
     config.vm.box = settings["box"] ||= "laravel/homestead"
-    config.vm.box_version = settings["version"] ||= ">= 0.4.0"
+    config.vm.box_version = settings["version"] ||= ">= 0.3.3"
     config.vm.hostname = settings["hostname"] ||= "homestead"
 
     # Configure A Private Network IP
@@ -190,7 +190,7 @@ class Homestead
 
     config.vm.provision "shell" do |s|
       s.name = "Restarting Nginx"
-      s.inline = "sudo service nginx restart; sudo service php7.0-fpm restart"
+      s.inline = "sudo service nginx restart; sudo service php5-fpm restart"
     end
 
     # Install MariaDB If Necessary
@@ -227,7 +227,7 @@ class Homestead
     if settings.has_key?("variables")
       settings["variables"].each do |var|
         config.vm.provision "shell" do |s|
-          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php/7.0/fpm/php-fpm.conf"
+          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php5/fpm/php-fpm.conf"
           s.args = [var["key"], var["value"]]
         end
 
@@ -238,7 +238,7 @@ class Homestead
       end
 
       config.vm.provision "shell" do |s|
-        s.inline = "service php7.0-fpm restart"
+        s.inline = "service php5-fpm restart"
       end
     end
 
