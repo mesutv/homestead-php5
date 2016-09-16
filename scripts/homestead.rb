@@ -259,5 +259,23 @@ class Homestead
         ]
       end
     end
+
+    ############################################################
+    # Oh My ZSH Install section
+    
+    # Install git and zsh prerequisites 
+     config.vm.provision :shell, inline: "apt-get -y install git"
+     config.vm.provision :shell, inline: "apt-get -y install zsh"
+
+    # Clone Oh My Zsh from the git repo
+     config.vm.provision :shell, privileged: false,
+      inline: "git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh"
+    # Copy in the default .zshrc config file
+     config.vm.provision :shell, privileged: false,
+      inline: "cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc"
+    # Change the vagrant user's shell to use zsh
+     config.vm.provision :shell, inline: "chsh -s $(which zsh) vagrant"
+
+    ############################################################
   end
 end
