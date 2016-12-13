@@ -141,7 +141,7 @@ class Homestead
 
         # Bindfs support to fix shared folder (NFS) permission issue on Mac
         if Vagrant.has_plugin?("vagrant-bindfs")
-          config.bindfs.bind_folder folder["to"], folder["to"]
+          #config.bindfs.bind_folder folder["to"], folder["to"]
         end
       end
     end
